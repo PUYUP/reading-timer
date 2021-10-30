@@ -32,7 +32,7 @@ function the_content_extend( $content ) {
 
     $timer_element = '<div id="timer-' . $post_id . '" class="countdown-timer">
         ' . ( !$current_reading_code ? '<div id="countdown"></div>' : '' ) . '
-        <div id="code">' . $current_reading_code . '</div>
+        <div id="code">' . ( $current_reading_code ? __( "Your code is " ) . $current_reading_code : '' ) . '</div>
     </div>';
 
     if ( $post_type == 'post' ) {
