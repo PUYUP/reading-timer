@@ -1,34 +1,4 @@
 <?php
-add_action( 'admin_menu', 'reading_timer_menu_page' );
-
-function reading_timer_menu_page() {
-
-	add_menu_page(
-		'Reading Timer', // page <title>Title</title>
-		'Reading Timer', // menu link text
-		'manage_options', // capability to access the page
-		'reading_timer-slug', // page URL slug
-		'reading_timer_page_content', // callback function /w content
-		'dashicons-admin-collapse', // menu icon
-		5 // priority
-	);
-
-}
-
-function reading_timer_page_content() { ?>
-	<div class="wrap">
-	    <h1><?php _e( "Reading Timer Setting", "reading_timer" ); ?></h1>
-	    <form method="post" action="options.php">
-			
-            <?php settings_fields( 'reading_timer_settings' ); // settings group name ?>
-            <?php do_settings_sections( 'reading_timer-slug' ); // just a page slug ?>
-            <?php submit_button(); ?>
-
-        </form>
-    </div>
-<?php }
-
-
 function reading_timer_register_setting(){
 	add_settings_section(
 		'reading_timer_settings_section_id', // section ID
