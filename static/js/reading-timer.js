@@ -6,15 +6,17 @@
         var $codeEl = $( '#timer-' + post_id + ' #code' );
         var $timerEl = $( "#timer-" + post_id + " #countdown" );
         
-        if ( $timerEl.length > 0 ) {
-            $timerEl.countdown( countdownTimer , function(event) {
-                var totalSeconds = event.offset.totalSeconds;
-                $(this).html(totalSeconds);
-            })
-            .on('finish.countdown', function() {
-                saveTimer();
-                $timerEl.hide();
-            });
+        var countdown = function($timerEl, countdownTimer) {
+            if ( $timerEl.length > 0 ) {
+                $timerEl.countdown( countdownTimer, function(event) {
+                    var totalSeconds = event.offset.totalSeconds;
+                    $(this).html(totalSeconds);
+                })
+                .on('finish.countdown', function() {
+                    saveTimer();
+                    $timerEl.hide();
+                });
+            }
         }
 
 
@@ -42,5 +44,17 @@
                 }
             });
         }
+
+
+        // ...
+        // START TIMER
+        // ...
+        $(document).on('click', '.countdown-timer #action', function(e) {
+            e.preventDefault();
+            $(this).hide();
+
+            var postId = $(this).attr('data-post-id');
+            countdown($timerEl, countdownTimer);
+        });
     } );
 })(jQuery);

@@ -17,6 +17,10 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
+if ( ! session_id() ) {
+    session_start();
+}
+
 define( 'READING_TIMER__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once( READING_TIMER__PLUGIN_DIR . 'inc/admin.php' );

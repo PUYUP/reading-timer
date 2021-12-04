@@ -25,18 +25,27 @@ function get_client_ip() {
  */
 function the_content_extend( $content ) {
     global $post;
-
+    
     $post_id = get_the_ID();
     $post_type = get_post_type( $post_id );
     $current_reading_code = $post->reading_code;
 
-    $timer_element = '<div id="timer-' . $post_id . '" class="countdown-timer">
-        ' . ( !$current_reading_code ? '<div id="countdown"></div>' : '' ) . '
-        <div id="code">' . ( $current_reading_code ? __( "Your code is " ) . $current_reading_code : '' ) . '</div>
-    </div>';
+    if ( $post_type == 'post' && is_single() ) {
+      if ($_SESSION['views'] % 3 == 0) {
+        $timer_element = '<div id="timer-' . $post_id . '" class="countdown-timer">
+            ' . ( !$current_reading_code ? '<div id="countdown"></div>' : '' ) . '
+            <div id="action"><button type="button" data-post-id="' . $post_id . '">Start Timer</button></div>
+            <div id="code">' . ( $current_reading_code ? __( "Your code is " ) . $current_reading_code : '' ) . '</div>
+        </div>';
 
-    if ( $post_type == 'post' ) {
         $content = $content . $timer_element;
+      }
+
+      if(isset($_SESSION['views'])){
+        $_SESSION['views'] = $_SESSION['views']+ 1;
+      }else{
+        $_SESSION['views'] = 1;
+      }
     }
 
     return $content;
